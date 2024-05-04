@@ -4,7 +4,7 @@ const { ChatOpenAI } = require("@langchain/openai");
 const { ChatPromptTemplate } = require("@langchain/core/prompts");
 const { StringOutputParser } = require("@langchain/core/output_parsers");
 
-const OPENAI_API_KEY = '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';
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY
 
 const fraudDetectionPrompt = `
   prompt: Detect and flag any potential fraud elements within the given email in an ordered manner:
@@ -169,4 +169,3 @@ async function main() {
 }
 
 main();
-
