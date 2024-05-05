@@ -5,13 +5,14 @@ const { ChatPromptTemplate } = require("@langchain/core/prompts");
 const { StringOutputParser } = require("@langchain/core/output_parsers");
 const fraudDetectionPrompt = require('../prompts/fraudDetectionPrompt');
 const CoTPrompt = require('../prompts/CoTPrompt');
+const RolePrompt = require('../prompts/RolePrompt');
 
+console.log(RolePrompt)
 
 require('dotenv').config({ path: '../.env' });
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 console.log(OPENAI_API_KEY); // Verify that the variable is loaded correctly
-
 
 async function testEmailFraud(emailText) {
   const chatModel = new ChatOpenAI({
@@ -20,7 +21,7 @@ async function testEmailFraud(emailText) {
   });
 
   const prompt = ChatPromptTemplate.fromMessages([
-    ["system", CoTPrompt],
+    ["system", RolePrompt],
     ["user", emailText]
   ]);
 
