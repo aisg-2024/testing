@@ -69,12 +69,30 @@ async function main() {
             falsePositive++;
             // Write false positive emails to a file
             fs.appendFileSync('false_positive.txt', `${emailText}\n`);
+            workbook.xlsx.readFile('false_positive.xlsx')
+              .then(function()  {
+                  const worksheet = workbook.getWorksheet(1);
+                  const lastRow = worksheet.lastRow;
+                  const getRowInsert = worksheet.getRow(++(lastRow.number));
+                  getRowInsert.getCell(1).value = `${emailText}`;
+                  getRowInsert.commit();
+                  return workbook.xlsx.writeFile('false_positive.xlsx');
+              });
           } else if (fraudDetected === 0 && expectedLabel === 0) {
             trueNegative++;
           } else if (fraudDetected === 0 && expectedLabel === 1) {
             falseNegative++;
             // Write false negative emails to a file
             fs.appendFileSync('false_negative.txt', `${emailText}\n`);
+            workbook.xlsx.readFile('false_negative.xlsx')
+            .then(function()  {
+                const worksheet = workbook.getWorksheet(1);
+                const lastRow = worksheet.lastRow;
+                const getRowInsert = worksheet.getRow(++(lastRow.number));
+                getRowInsert.getCell(1).value = `${emailText}`;
+                getRowInsert.commit();
+                return workbook.xlsx.writeFile('false_negative.xlsx');
+            });
           }
         } catch (error) {
           console.error("Error processing row:", rowNumber);
