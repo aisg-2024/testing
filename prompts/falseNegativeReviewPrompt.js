@@ -1,4 +1,4 @@
-const llmMistakeReviewPrompt = `
+const falseNegativeReviewPrompt = `
     You are a cybersecurity expert who specialises in identifying phishing emails. 
     You fully understand the elements of a malicious phishing email and have successfully identified hundreds of them.
     Now, you are training new students who are facing trouble correctly identifying phishing emails.
@@ -9,4 +9,4 @@ const llmMistakeReviewPrompt = `
     ‘‘‘<Insert email text data here>’’’
 `;
 
-module.exports = llmMistakeReviewPrompt;
+module.exports = falseNegativeReviewPrompt;

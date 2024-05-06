@@ -1,9 +1,8 @@
-const fs = require('fs');
 const ExcelJS = require('exceljs');
 const { ChatOpenAI } = require("@langchain/openai");
 const { ChatPromptTemplate } = require("@langchain/core/prompts");
 const { StringOutputParser } = require("@langchain/core/output_parsers");
-const llmMistakeReviewPrompt = require('../prompts/llmMistakeReviewPrompt');
+const falsePositiveReviewPrompt = require('../prompts/falsePositiveReviewPrompt');
 
 require('dotenv').config({ path: '../.env' });
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
@@ -15,7 +14,7 @@ async function reviewError(emailText) {
     });
   
     const prompt = ChatPromptTemplate.fromMessages([
-      ["system", llmMistakeReviewPrompt],
+      ["system", falsePositiveReviewPrompt],
       ["user", emailText]
     ]);
   
@@ -34,7 +33,7 @@ async function reviewError(emailText) {
   
   async function main() {
     const workbook = new ExcelJS.Workbook();
-    workbook.xlsx.readFile('false_negative.xlsx').then(async () => {
+    workbook.xlsx.readFile('false_positive.xlsx').then(async () => {
 
         const worksheet = workbook.getWorksheet('Sheet1');
         console.log(worksheet.rowCount + " rows");
@@ -52,7 +51,7 @@ async function reviewError(emailText) {
             const llmReview = await reviewError(emailText);
             row.getCell(2).value = llmReview;
             row.commit();
-            workbook.xlsx.writeFile('false_negative.xlsx')
+            workbook.xlsx.writeFile('false_positive.xlsx')
             } catch (error) {
             console.error("Error processing row:", rowNumber);
             } finally {
