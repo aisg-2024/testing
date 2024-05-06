@@ -10,14 +10,13 @@ require('dotenv').config();
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 console.log(OPENAI_API_KEY); // Verify that the variable is loaded correctly
 
-async function main() {
-
     // Initialize the OpenAI model with the API key
     const chatModel = new ChatOpenAI({
-        openAIApiKey: OPENAI_API_KEY,
-        model: 'gpt-3.5-turbo'
-    });
+      openAIApiKey: OPENAI_API_KEY,
+      model: 'gpt-3.5-turbo'
+  });
 
+async function main() {
     // Prepare the prompt with the system and user messages
     const prompt = ChatPromptTemplate.fromMessages([
         ["system", researchPromptJSON],
@@ -35,8 +34,8 @@ async function main() {
         const response = await llmChain.invoke();
         console.log("Response from language model:", response);
 
-        // Determine if the response suggests fraud
-        let fraudDetected = response.toLowerCase().includes("fraud") ? 1 : 0;
+        const data = JSON.parse(response);
+        const fraudDetected = data.is_phishing;
         console.log(fraudDetected)
 
         return { response, fraudDetected };
