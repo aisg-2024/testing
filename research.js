@@ -35,7 +35,8 @@ async function main() {
         console.log("Response from language model:", response);
 
         const data = JSON.parse(response);
-        const fraudDetected = data.is_phishing;
+        const fraudDetected = data.is_phishing ? 1 : 0;
+
         console.log(fraudDetected)
 
         return { response, fraudDetected };
