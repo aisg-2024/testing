@@ -72,6 +72,7 @@ const extractionFunctionSchema = {
 
 //   console.log(fraudDetected);
 // }
+let counter = 0;
 
 async function testEmailFraud(emailText) {
   const prompt = ChatPromptTemplate.fromMessages([
@@ -89,7 +90,9 @@ async function testEmailFraud(emailText) {
 
   try {
     const result = await runnable.invoke();
-    const is_phishing = result.is_phishing;
+    const is_phishing = result.is_phishing === "true"; // Convert to boolean
+    counter++;
+    console.log(counter)
     const fraudDetected = is_phishing ? 1 : 0;
     return fraudDetected;
   } catch (error) {
@@ -104,7 +107,7 @@ async function main() {
   let trueNegative = 0;
   let falseNegative = 0;
   const workbook = new ExcelJS.Workbook();
-  workbook.xlsx.readFile('dataset_test4.xlsx').then(async () => {
+  workbook.xlsx.readFile('dataset_test3.xlsx').then(async () => {
 
     const worksheet = workbook.getWorksheet('Sheet1');
     console.log(worksheet.rowCount + " rows");
