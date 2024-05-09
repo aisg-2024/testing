@@ -1,11 +1,14 @@
 const { ChatOpenAI } = require("@langchain/openai");
 const { JsonOutputFunctionsParser } = require("langchain/output_parsers");
-const { HumanMessage } = require("@langchain/core/messages");
 const { ChatPromptTemplate } = require("@langchain/core/prompts");
-const researchPromptSplitJSON = require('../prompts/researchPromptSplitJSON');
+const prompt1 = require('../prompts/prompt1');
+const prompt2 = require('../prompts/prompt2');
+const prompt3 = require('../prompts/prompt3');
+const prompt4 = require('../prompts/prompt4');
 const fraud_email = require("../email_content/fraud_email")
 const fs = require('fs');
 const ExcelJS = require('exceljs');
+
 
 require('dotenv').config({ path: '../.env' });
 
@@ -34,7 +37,7 @@ const extractionFunctionSchema = {
       },
       phishing_score: {
         type: "number",
-        description: "phishing risk confidence score as an integer on a scale from 0 to 10.",
+        description: "phishing risk confidence score as an integer on a scale from 0 to 10,  0 to 5 means legitimate, 6 to 10 means phishing",
       },
       brand_impersonation: {
         type: "string",
@@ -53,30 +56,11 @@ const extractionFunctionSchema = {
   },
 };
 
-// async function runExtraction() {
-//   const prompt = ChatPromptTemplate.fromMessages([
-//     ["system", researchPromptSplitJSON],
-//     ["user", fraud_email]
-//   ]);
-
-//   const model_params = chatModel.bind({
-//     functions: [extractionFunctionSchema],
-//     function_call: { name: "extractor" },
-//   })
-
-//   const runnable = prompt.pipe(model_params).pipe(parser);
-
-//   const result = await runnable.invoke();
-//   const is_phishing = result.is_phishing;
-//   const fraudDetected = is_phishing ? 1 : 0;
-
-//   console.log(fraudDetected);
-// }
 let counter = 0;
 
 async function testEmailFraud(emailText) {
   const prompt = ChatPromptTemplate.fromMessages([
-    ["system", researchPromptSplitJSON],
+    ["system", prompt4],
     ["user", emailText]
   ]);
 
@@ -86,7 +70,6 @@ async function testEmailFraud(emailText) {
   })
 
   const runnable = prompt.pipe(model_params).pipe(parser);
-  // const llmChain = prompt.pipe(chatModel).pipe(outputParser);
 
   try {
     const result = await runnable.invoke();
@@ -107,7 +90,7 @@ async function main() {
   let trueNegative = 0;
   let falseNegative = 0;
   const workbook = new ExcelJS.Workbook();
-  workbook.xlsx.readFile('dataset_test3.xlsx').then(async () => {
+  workbook.xlsx.readFile('dataset_test4.xlsx').then(async () => {
 
     const worksheet = workbook.getWorksheet('Sheet1');
     console.log(worksheet.rowCount + " rows");
