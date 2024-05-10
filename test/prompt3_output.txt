@@ -1,0 +1,23 @@
+Batch 1 -- TP: 47, FP: 2, FN: 3, TN: 48
+Batch 2 -- TP: 47, FP: 2, FN: 3, TN: 48
+Batch 3 -- TP: 47, FP: 0, FN: 3, TN: 50
+Batch 4 -- TP: 49, FP: 0, FN: 1, TN: 50
+Batch 5 -- TP: 49, FP: 1, FN: 1, TN: 49
+Batch 6 -- TP: 47, FP: 1, FN: 3, TN: 49
+Batch 7 -- TP: 47, FP: 2, FN: 3, TN: 48
+Batch 8 -- TP: 47, FP: 0, FN: 3, TN: 50
+Batch 9 -- TP: 50, FP: 0, FN: 0, TN: 50
+Batch 10 -- TP: 50, FP: 2, FN: 0, TN: 48
+Batch 11 -- TP: 48, FP: 2, FN: 2, TN: 48
+Batch 12 -- TP: 49, FP: 1, FN: 1, TN: 49
+Batch 13 -- TP: 49, FP: 2, FN: 1, TN: 48
+Batch 14 -- TP: 50, FP: 0, FN: 0, TN: 50
+Batch 15 -- TP: 49, FP: 2, FN: 1, TN: 48
+Batch 16 -- TP: 47, FP: 1, FN: 3, TN: 49
+Batch 17 -- TP: 47, FP: 2, FN: 3, TN: 48
+Batch 18 -- TP: 47, FP: 1, FN: 3, TN: 49
+Batch 19 -- TP: 48, FP: 1, FN: 2, TN: 49
+Batch 20 -- TP: 49, FP: 3, FN: 1, TN: 47
+Batch Total -- TP: 963, FP: 25, FN: 37, TN: 975
+
+
